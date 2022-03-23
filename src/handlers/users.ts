@@ -6,26 +6,21 @@ import verifyAuthToken from '../middleware/verifyAuthToken';
 
 dotenv.config();
 
-const tokensecret: string = process.env.TOKEN_SECRET!;
-
 const store = new UserStore();
 
 // express handler function
 const create = async (req: Request, res: Response) => {
   const user: User = {
-    id: req.body.id,
     username: req.body.username,
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
     user_password: req.body.user_password,
   };
   try {
     const newUser = await store.create(user);
-    const token = jwt.sign({ user: newUser }, tokensecret);
+    const token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET);
     console.log('create user route.');
     res.json(token);
   } catch (err) {
-    res.status(400);
+    res.status(401);
     res.json(err.message);
   }
 };
@@ -60,14 +55,14 @@ const authenticate = async (req: Request, res: Response) => {
       req.body.user_password
     );
     if (resultForauthentication) {
-      const token = jwt.sign({ user: resultForauthentication }, tokensecret);
+      const token = jwt.sign({ user: resultForauthentication }, process.env.TOKEN_SECRET);
       res.json(token);
     } else {
       res.status(401).send('No authentication.');
     }
   } catch (err) {
     res.status(401);
-    res.send(err);
+    res.send('did not get it right');
   }
 };
 

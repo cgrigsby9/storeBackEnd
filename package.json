@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "build": "npx tsc",
-    "start": "node src/server.ts",
+    "start": "node build/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "test": "cross-env ENV=test db-migrate db:create collection_test && db-migrate --env test up && jasmine-ts && db-migrate db:drop collection_test",
     "tsc": "tsc"
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@types/express": "^4.17.9",
     "@types/jasmine": "^3.6.3",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/pg": "^7.14.7",
     "jasmine": "^3.6.4",
     "jasmine-spec-reporter": "^6.0.0",

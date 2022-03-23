@@ -5,7 +5,6 @@ CREATE TABLE books (
     title VARCHAR(150),
     author VARCHAR(255),
     genre VARCHAR(50),
-    total_pages integer,
-    summary text
+    total_pages integer
     );
 
