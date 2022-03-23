@@ -3,18 +3,18 @@ The company stakeholders want to create an online storefront to showcase their g
 
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 
+localhost:3000
+
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+index route "/books[GET]" 
 
+show route "/books/:id[GET]" 
+
+create route "/books[POST]" 
+
+delete route "/deleteproduct/:id[DELETE]" 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
 
 #### Orders
 - Current Order by user (args: user id)[token required]
@@ -22,21 +22,27 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+index route "/books[GET]
+show route "/books/:id[GET]
+create route "/books[POST]
+delete route 'deletebooks/:id[DELETE]
 
 #### User
-- id
-- firstName
-- lastName
-- password
+index route "/users[GET]
+show route '/users/:id[GET]
+create route "/createuser[POST]
+authenticate route '/authenticate[POST]
+
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+show route "/orders/:id[GET]" 
 
+create route "/orders[POST]"
+sample request body:
+{ "id": 1, "order_status": "Active", "user_id": 4 }
+
+showByUser route "/orders/users/:userid[GET]"
+
+completedOrdersByUser route "/completedorders/:userid[GET]"
+
+addProduct route "/orders:orderid/products[POST]"
