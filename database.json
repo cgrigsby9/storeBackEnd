@@ -3,14 +3,14 @@
       "driver": "pg",
       "host": "127.0.0.1",
       "database": "books",
-      "user": "book_reader",
-      "password": "Gideon9"
+      "user": "postgres",
+      "password": "DPD4ll4s"
     },
     "test": {
       "driver": "pg",
       "host": "127.0.0.1",
       "database": "books_test",
-      "user": "book_reader",
-      "password": "Gideon9"
+      "user": "postgres",
+      "password": "DPD4ll4s"
     }
   }
