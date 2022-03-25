@@ -12,6 +12,8 @@ const store = new UserStore();
 const create = async (req: Request, res: Response) => {
   const user: User = {
     username: req.body.username,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     user_password: req.body.user_password,
   };
   try {
@@ -52,7 +54,8 @@ const authenticate = async (req: Request, res: Response) => {
   try {
     const resultForauthentication = await store.authenticate(
       req.body.username,
-      req.body.user_password
+      req.body.user_password,
+      
     );
     if (resultForauthentication) {
       const token = jwt.sign({ user: resultForauthentication }, process.env.TOKEN_SECRET);
