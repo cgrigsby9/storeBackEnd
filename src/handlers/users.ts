@@ -18,12 +18,12 @@ const create = async (req: Request, res: Response) => {
   };
   try {
     const newUser = await store.create(user);
-    const token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET);
+    var token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET);
     console.log('create user route.');
     res.json(token);
   } catch (err) {
-    res.status(401);
-    res.json(err.message);
+    res.status(400);
+    res.json(err + user);
   }
 };
 
@@ -51,29 +51,44 @@ const show = async (req: Request, res: Response) => {
 };
 
 const authenticate = async (req: Request, res: Response) => {
+  const user: User = {
+    username: req.body.username as string,
+    firstname: req.body.firstname as string,
+    lastname: req.body.lastname as string,
+    user_password: req.body.user_password as string,
+  }
   try {
-    const resultForauthentication = await store.authenticate(
-      req.body.username,
-      req.body.user_password,
-      
-    );
-    if (resultForauthentication) {
-      const token = jwt.sign({ user: resultForauthentication }, process.env.TOKEN_SECRET);
-      res.json(token);
-    } else {
-      res.status(401).send('No authentication.');
-    }
-  } catch (err) {
-    res.status(401);
-    res.send('did not get it right');
+      const u = await store.authenticate(user.username, user.user_password)
+      var token = jwt.sign({ user: u }, process.env.TOKEN_SECRET);
+      res.json(token)
+  } catch(error) {
+      res.status(401)
+      res.json({ error })
   }
 };
+//   try {
+//     const resultForauthentication = await store.authenticate(
+//       req.body.username,
+//       req.body.user_password,
+      
+//     );
+//     if (resultForauthentication) {
+//       const token = jwt.sign({ user: resultForauthentication }, process.env.TOKEN_SECRET);
+//       res.json(token);
+//     } else {
+//       res.status(401).send('No authentication.');
+//     }
+//   } catch (err) {
+//     res.status(401);
+//     res.send('did not get it right');
+//   }
+// };
 
 const user_routes = (app: express.Application): void => {
   app.post('/authenticate', authenticate);
-  app.post('/createuser', create);
+  app.post('/createusers', create);
   // provide your-256-bit-secret field in JWT debugger for testing
-  app.get('/users', verifyAuthToken, index);
+  app.get('/users', index);
   app.get('/users/:id', verifyAuthToken, show);
 };
 

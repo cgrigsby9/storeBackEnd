@@ -4,8 +4,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const tokensecret: string = process.env.TOKEN_SECRET!;
-
 const verifyAuthToken = (
   req: Request,
   res: Response,
@@ -17,7 +15,7 @@ const verifyAuthToken = (
       return res.status(401).send('invalid request');
     }
     const token = authorizationHeader.split(' ')[1];
-    const decoded = jwt.verify(token, tokensecret);
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     next();
   } catch (err) {
     res.status(401);
