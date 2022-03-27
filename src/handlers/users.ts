@@ -11,6 +11,7 @@ const store = new UserStore();
 // express handler function
 const create = async (req: Request, res: Response) => {
   const user: User = {
+    id: req.body.id,
     username: req.body.username,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -52,6 +53,7 @@ const show = async (req: Request, res: Response) => {
 
 const authenticate = async (req: Request, res: Response) => {
   const user: User = {
+    id: req.body.id as number,
     username: req.body.username as string,
     firstname: req.body.firstname as string,
     lastname: req.body.lastname as string,
