@@ -61,12 +61,12 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const addProduct = async (req: Request, res: Response) => {
+const addBooks = async (req: Request, res: Response) => {
   const order_id: string = req.params.orderid;
-  const product_id: string = req.body.product_id;
+  const books_id: string = req.body.product_id;
   const quantity: number = req.body.quantity;
   try {
-    const addedInfo = await store.addProduct(quantity, order_id, product_id);
+    const addedInfo = await store.addBooks(quantity, order_id, books_id);
     res.json(addedInfo);
   } catch (err) {
     res.status(400);
@@ -80,10 +80,10 @@ const order_routes = (app: express.Application): void => {
   app.get('/orders/users/:userid', verifyAuthToken, showByUser);
   app.post('/orders', verifyAuthToken, create);
   app.post(
-    '/orders/:orderid/products',
+    '/orders/:orderid/books',
     verifyAuthToken,
     checkOrderStatus,
-    addProduct
+    addBooks
   );
 };
 

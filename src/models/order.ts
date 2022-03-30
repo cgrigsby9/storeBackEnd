@@ -65,10 +65,10 @@ export class OrderStore {
     }
   }
 
-  async addProduct(
+  async addBooks(
     quantity: number,
     order_id: string,
-    product_id: string
+    books_id: string
   ): Promise<{
     id: number;
     quantity: number;
@@ -77,15 +77,15 @@ export class OrderStore {
   }> {
     try {
       const sql =
-        'INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *';
+        'INSERT INTO order_products (quantity, order_id, book_id) VALUES ($1, $2, $3) RETURNING *';
       const conn = await Client.connect();
-      const result = await conn.query(sql, [quantity, order_id, product_id]);
+      const result = await conn.query(sql, [quantity, order_id, books_id]);
       const addedInfo = result.rows[0];
       conn.release();
       return addedInfo;
     } catch (err) {
       throw new Error(
-        `Could not add product ${product_id} to order ${order_id}: ${err}`
+        `Could not add product ${books_id} to order ${order_id}: ${err}`
       );
     }
   }
