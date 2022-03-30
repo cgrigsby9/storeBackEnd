@@ -8,19 +8,16 @@ const verifyAuthToken = (
   req: Request,
   res: Response,
   next: NextFunction
-): unknown => {
+) => {
   try {
     const authorizationHeader = req.headers.authorization;
-    if (!authorizationHeader) {
-      return res.status(401).send('invalid request');
-    }
     const token = authorizationHeader.split(' ')[1];
+    
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     next();
-  } catch (err) {
+  }catch(err){
     res.status(401);
-    res.send(err);
+    res.json('Acess denied, invalid token');
   }
-};
-
+}
 export default verifyAuthToken;

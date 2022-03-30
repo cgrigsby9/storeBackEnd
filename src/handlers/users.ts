@@ -68,23 +68,8 @@ const authenticate = async (req: Request, res: Response) => {
       res.json({ error })
   }
 };
-//   try {
-//     const resultForauthentication = await store.authenticate(
-//       req.body.username,
-//       req.body.user_password,
-      
-//     );
-//     if (resultForauthentication) {
-//       const token = jwt.sign({ user: resultForauthentication }, process.env.TOKEN_SECRET);
-//       res.json(token);
-//     } else {
-//       res.status(401).send('No authentication.');
-//     }
-//   } catch (err) {
-//     res.status(401);
-//     res.send('did not get it right');
-//   }
-// };
+
+
 
 const user_routes = (app: express.Application): void => {
   app.post('/authenticate', authenticate);
